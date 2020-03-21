@@ -43,7 +43,6 @@ y = np.c_[country_stats["Life satisfaction"]]
 
 # Visualize the data
 country_stats.plot(kind='scatter', x="GDP per capita", y="Life satisfaction")
-plt.show()
 
 # Select a linear model
 regresion = sklearn.linear_model.LinearRegression()
@@ -53,9 +52,15 @@ neighbors = sklearn.neighbors.KNeighborsRegressor(n_neighbors=3)
 regresion.fit(x, y)
 neighbors.fit(x, y)
 
+# Plot regression line
+plt.plot(x, regresion.predict(x), color='r')
+
 # Make a prediction for Mexico
 x_new = [[9009.2800]]  # Mexico's GDP per capita
 print(regresion.predict(x_new))  # outputs [[5.2955476, should be 6.7]]
 print(neighbors.predict(x_new))  # outputs [[5.5]]
+
+# Plot prediction
+plt.scatter(x_new, regresion.predict(x_new), color='g')
 
 # Conclusion: we are happier than we should be
